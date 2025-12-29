@@ -21,7 +21,7 @@ function App() {
           <Route path='/' Component={Home} />
           <Route path='/home' Component={Home} />
           <Route path='/login' Component={Login} />
-          <Route path='/book/:bedType' element={<PrivateRoute><Book /></PrivateRoute>} />
+          <Route path='/book/:bedType' element={<Book />} />
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>

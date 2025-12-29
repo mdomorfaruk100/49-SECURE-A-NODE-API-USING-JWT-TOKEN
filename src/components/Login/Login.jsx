@@ -1,7 +1,7 @@
+import { useState, useContext } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import firebaseConfig from './firebaseConfig';
-import { useContext, useState } from 'react';
 import { UserContext } from '../../App';
 import { useLocation, useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
@@ -10,6 +10,7 @@ import './Login.css';
 
 const Login = () => {
     const [newUser, setNewUser] = useState(false);
+    const [count, setCount] = useState(0);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const [, setLoggedInUser] = useContext(UserContext);
@@ -95,7 +96,7 @@ const Login = () => {
                }
                 <TextField  label="Enter Your Email" {...register('email', {required: 'Email Is Required.'})} color="primary" sx={{width:'500px', marginBottom:'10px'}}/>
                 { errors.email && <Alert severity='error'>{errors.email.message}</Alert>}
-                <TextField  label="Enter Your Password" {...register('password', {required: 'Password Is Required.'})} color="primary" sx={{width:'500px'}} /> 
+                <TextField  label="Enter Your Password" {...register('password', {required: 'Password Is Required.'})} color="primary" sx={{width:'500px'}} />
                 { errors.password && <Alert severity='error'>{errors.password.message}</Alert>}
                 <input type="submit" value={newUser ? 'Register': 'Log In'} style={{width: '100px', border: 'none', outline: 'none', padding: '7px 10px', borderRadius: '7px'}} />
             </form>
