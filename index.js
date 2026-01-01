@@ -1,10 +1,12 @@
 const express = require('express');
 const {MongoClient, ServerApiVersion} = require('mongodb');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
-const port = 3000;
-const username = 'arabian';
-const password = 'jgj3j4j34io593459iorgfhgk';
-const uri = "mongodb+srv://arabian:jgj3j4j34io593459iorgfhgk@cluster0.2xwfxzc.mongodb.net/?appName=Cluster0";
+const port = 3000
+
+app.use(cors());
+app.use(bodyParser.json());
 
 const client = new MongoClient(uri, {
     serverApi:{
@@ -15,7 +17,14 @@ const client = new MongoClient(uri, {
 });
 
 client.connect().then(client => {
+    const bookings = client.db('burjAlArab').collection('bookings');
     console.log('connected')
+    app.post('/addBooking', (req, res) => {
+        const newBooking = req.body;
+        bookings.insertOne(newBooking).then(result => {
+            res.send(result.insertedId);
+        })
+    })
 })
 
 app.get('/', (req, res)=>{
